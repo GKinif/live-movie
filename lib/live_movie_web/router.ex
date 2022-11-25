@@ -18,6 +18,13 @@ defmodule LiveMovieWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/genres", GenreLive.Index, :index
+    live "/genres/new", GenreLive.Index, :new
+    live "/genres/:id/edit", GenreLive.Index, :edit
+
+    live "/genres/:id", GenreLive.Show, :show
+    live "/genres/:id/show/edit", GenreLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

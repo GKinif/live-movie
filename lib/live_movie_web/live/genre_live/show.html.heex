@@ -1,0 +1,26 @@
+<.header>
+  Genre <%= @genre.id %>
+  <:subtitle>This is a genre record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/genres/#{@genre}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit genre</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @genre.name %></:item>
+</.list>
+
+<.back navigate={~p"/genres"}>Back to genres</.back>
+
+<.modal :if={@live_action == :edit} id="genre-modal" show on_cancel={JS.patch(~p"/genres/#{@genre}")}>
+  <.live_component
+    module={LiveMovieWeb.GenreLive.FormComponent}
+    id={@genre.id}
+    title={@page_title}
+    action={@live_action}
+    genre={@genre}
+    navigate={~p"/genres/#{@genre}"}
+  />
+</.modal>

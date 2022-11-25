@@ -1,0 +1,39 @@
+<.header>
+  Listing Genres
+  <:actions>
+    <.link patch={~p"/genres/new"}>
+      <.button>New Genre</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="genres" rows={@genres} row_click={&JS.navigate(~p"/genres/#{&1}")}>
+  <:col :let={genre} label="Name"><%= genre.name %></:col>
+  <:action :let={genre}>
+    <div class="sr-only">
+      <.link navigate={~p"/genres/#{genre}"}>Show</.link>
+    </div>
+    <.link patch={~p"/genres/#{genre}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={genre}>
+    <.link phx-click={JS.push("delete", value: %{id: genre.id})} data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="genre-modal"
+  show
+  on_cancel={JS.navigate(~p"/genres")}
+>
+  <.live_component
+    module={LiveMovieWeb.GenreLive.FormComponent}
+    id={@genre.id || :new}
+    title={@page_title}
+    action={@live_action}
+    genre={@genre}
+    navigate={~p"/genres"}
+  />
+</.modal>

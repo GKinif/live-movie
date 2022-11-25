@@ -28,7 +28,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 ### Start the development server
 > $ docker compose up -d
 
-> $ iex -s mix phx.server
+> $ iex -S mix phx.server
 
 ### Stop the development server
 > $ CTRL + C to stop the server
